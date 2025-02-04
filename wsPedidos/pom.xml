@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.techchallenge.safedeliver</groupId>
-	<artifactId>gerenciamentoClientes</artifactId>
+	<artifactId>gerenciamentoPedidos</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>gerenciamentoClientes</name>
-	<description>Projeto realizado para o quarto modulo da pós graduação FIAP. Webservice Responsável por cuidar dos Clientes.</description>
+	<name>gerenciamentoPedidos</name>
+	<description>Projeto realizado para o quarto modulo da pós graduação FIAP.</description>
 	<url/>
 	<licenses>
 		<license/>
