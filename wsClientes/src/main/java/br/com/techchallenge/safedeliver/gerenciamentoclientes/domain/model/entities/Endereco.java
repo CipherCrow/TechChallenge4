@@ -38,4 +38,7 @@ public class Endereco {
     @JoinColumn(name = "cod_cliente", referencedColumnName = "cod_cliente")
     private Cliente cliente;
 
+    @Column(name = "ind_deletado")
+    private boolean deletado = false;
+
 }
