@@ -20,7 +20,7 @@ public class ClienteServiceImpl implements ClienteService{
 
     @Override
     public Cliente excluir(Long codCliente) {
-
+        return null;
     }
 
     @Override
