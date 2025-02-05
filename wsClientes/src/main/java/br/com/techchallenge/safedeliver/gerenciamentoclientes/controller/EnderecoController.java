@@ -2,7 +2,6 @@ package br.com.techchallenge.safedeliver.gerenciamentoclientes.controller;
 
 import br.com.techchallenge.safedeliver.gerenciamentoclientes.dto.EnderecoDTO;
 import br.com.techchallenge.safedeliver.gerenciamentoclientes.exception.RegistroNotFoundException;
-import br.com.techchallenge.safedeliver.gerenciamentoclientes.mapper.ClienteMapper;
 import br.com.techchallenge.safedeliver.gerenciamentoclientes.mapper.EnderecoMapper;
 import br.com.techchallenge.safedeliver.gerenciamentoclientes.service.EnderecoService;
 import lombok.RequiredArgsConstructor;
