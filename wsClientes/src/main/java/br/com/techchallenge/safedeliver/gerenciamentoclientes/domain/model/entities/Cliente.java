@@ -37,4 +37,7 @@ public class Cliente {
     @Column(name = "nro_idade")
     private int idade;
 
+    @Column(name = "ind_deletado")
+    private boolean deletado = false;
+
 }
