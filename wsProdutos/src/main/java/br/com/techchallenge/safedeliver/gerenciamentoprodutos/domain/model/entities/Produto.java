@@ -1,4 +1,4 @@
-package br.com.techchallenge.safedeliver.gerenciamentoProdutos.domain.model.entities;
+package br.com.techchallenge.safedeliver.gerenciamentoprodutos.domain.model.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -21,7 +21,7 @@ public class Produto {
 
     @Column(name = "des_descricao",nullable = false)
     @NotNull(message = "Deve existir uma descricao para o produto!")
-    private String nome;
+    private String descricao;
 
     @Column(name = "qtd_estoque",nullable = false)
     @NotNull(message = "Deve existir uma quantidade em estoque!")
@@ -30,4 +30,8 @@ public class Produto {
     @Column(name = "nro_preco",nullable = false)
     @NotNull(message = "Deve existir um preco!")
     private Double preco;
+
+    @Column(name = "ind_deletado")
+    private boolean deletado = false;
+
 }
