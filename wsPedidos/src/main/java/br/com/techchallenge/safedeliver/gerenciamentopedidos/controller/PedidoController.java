@@ -4,6 +4,7 @@ import br.com.techchallenge.safedeliver.gerenciamentopedidos.exception.RegistroN
 import br.com.techchallenge.safedeliver.gerenciamentopedidos.mapper.PedidoMapper;
 import br.com.techchallenge.safedeliver.gerenciamentopedidos.service.PedidoItemService;
 import br.com.techchallenge.safedeliver.gerenciamentopedidos.service.PedidoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class PedidoController {
     private final PedidoItemService pedidoItemService;
 
     @PostMapping("/criar")
-    public ResponseEntity<Object> criar(@RequestParam Long cliente){
+    public ResponseEntity<Object> criar(@Valid @RequestParam Long cliente){
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(
                     PedidoMapper.toDTO(
@@ -36,16 +37,17 @@ public class PedidoController {
     }
 
     @PutMapping("/inserirItem/{id}")
-    public ResponseEntity<Object> inserirItem(@RequestParam Long idProduto,
+    public ResponseEntity<Object> inserirItem(@Valid @RequestParam Long idProduto,
                                               @RequestParam int quantidade,
-                                              @PathVariable Long id){
+                                              @Valid @PathVariable Long id){
         try {
+            pedidoService.inserirItem(id,idProduto,quantidade);
             return ResponseEntity.status(HttpStatus.OK).body(
                     PedidoMapper.toDTO(
-                            pedidoService.inserirItem(id,idProduto,quantidade)
+                            pedidoService.atualizarValorTotal(id)
                     )
             );
-        }catch(NullPointerException e){
+        }catch(NullPointerException | IllegalArgumentException e ){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }catch(RegistroNotFoundException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -53,15 +55,16 @@ public class PedidoController {
     }
 
     @DeleteMapping("/removerItem/{id}")
-    public ResponseEntity<Object> removerItem(@PathVariable Long id,
-                                          @RequestParam Long codigoItem){
+    public ResponseEntity<Object> removerItem(@Valid @PathVariable Long id,
+                                              @Valid @RequestParam Long codigoItem){
         try {
+            pedidoService.removerItem(id,codigoItem);
             return ResponseEntity.status(HttpStatus.OK).body(
                     PedidoMapper.toDTO(
-                            pedidoService.removerItem(id,codigoItem)
+                            pedidoService.atualizarValorTotal(id)
                     )
             );
-        }catch(NullPointerException e){
+        }catch(NullPointerException | IllegalArgumentException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }catch(RegistroNotFoundException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -69,11 +72,11 @@ public class PedidoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> encontrar(@PathVariable Long id){
+    public ResponseEntity<Object> encontrar(@Valid @PathVariable Long id){
         try {
             return ResponseEntity.status(HttpStatus.FOUND).body(
                     PedidoMapper.toDTO(
-                            pedidoService.findById(id)
+                            pedidoService.encontrarPeloId(id)
                     )
             );
         }catch(NullPointerException e){
@@ -98,7 +101,7 @@ public class PedidoController {
 
     @PutMapping("/confirmarPedido/{id}")
     public ResponseEntity<Object> confirmarPedido(@PathVariable Long id,
-                                                  @RequestParam Long endereco){
+                                                  @Valid @RequestParam Long endereco){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(
                     PedidoMapper.toDTO(

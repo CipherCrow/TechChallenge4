@@ -24,8 +24,8 @@ public class Pedido {
     private Long id;
 
     @Column(name = "cod_cliente",nullable = false)
-    @NotNull(message = "Deve existir um cliente!")
-    private Long cliente;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Cliente cliente;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "cod_pedido", referencedColumnName = "cod_pedido")
@@ -35,7 +35,8 @@ public class Pedido {
     private Double valorTotal = (double) 0;
 
     @Column(name = "cod_endereco",nullable = false)
-    private Long endereco;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Endereco endereco;
 
     @Column(name  = "ind_status")
     @Enumerated(EnumType.STRING)

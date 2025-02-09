@@ -20,6 +20,7 @@ public class EnderecoServiceImpl implements EnderecoService{
 
     @Override
     public Endereco adicionar(Long codCliente, Endereco endereco) {
+
         Cliente clienteEncontrado = clienteService.findById(codCliente);
         endereco.setCliente(clienteEncontrado);
 
@@ -52,6 +53,14 @@ public class EnderecoServiceImpl implements EnderecoService{
         Cliente clienteEncontrado = clienteService.findById(codigoCliente);
 
         return enderecoRepository.findEnderecoByCliente_Id(clienteEncontrado.getId());
+    }
+
+    @Override
+    public Endereco buscarEnderecoPorId(Long codEndereco) {
+        Objects.requireNonNull(codEndereco, idNotNull);
+
+        return enderecoRepository.findById(codEndereco)
+                .orElseThrow(() -> new RegistroNotFoundException("Endereço "));
     }
 
     @Override

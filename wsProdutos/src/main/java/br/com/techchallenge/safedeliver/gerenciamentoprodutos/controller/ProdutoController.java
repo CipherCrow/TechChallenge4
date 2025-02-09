@@ -4,6 +4,7 @@ import br.com.techchallenge.safedeliver.gerenciamentoprodutos.dto.ProdutoDTO;
 import br.com.techchallenge.safedeliver.gerenciamentoprodutos.exception.RegistroNotFoundException;
 import br.com.techchallenge.safedeliver.gerenciamentoprodutos.mapper.ProdutoMapper;
 import br.com.techchallenge.safedeliver.gerenciamentoprodutos.service.ProdutoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,7 +34,7 @@ public class ProdutoController {
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<Object> atualizar(@RequestBody ProdutoDTO produto, @PathVariable Long id){
+    public ResponseEntity<Object> atualizar(@RequestBody ProdutoDTO produto, @Valid @PathVariable Long id){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(
                     ProdutoMapper.toDTO(
@@ -47,7 +48,7 @@ public class ProdutoController {
         }
     }
 
-    @PutMapping("/atualizar/{id}")
+    @PutMapping("/atualizarQuantidade/{id}")
     public ResponseEntity<Object> atualizarQuantidade(@PathVariable Long id, @RequestParam Integer quantidadeNova){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(

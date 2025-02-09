@@ -4,6 +4,7 @@ import br.com.techchallenge.safedeliver.gerenciamentoclientes.dto.ClienteDTO;
 import br.com.techchallenge.safedeliver.gerenciamentoclientes.exception.RegistroNotFoundException;
 import br.com.techchallenge.safedeliver.gerenciamentoclientes.mapper.ClienteMapper;
 import br.com.techchallenge.safedeliver.gerenciamentoclientes.service.ClienteService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,7 +34,7 @@ public class ClienteController {
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<Object> atualizar(@RequestBody ClienteDTO cliente, @PathVariable Long id){
+    public ResponseEntity<Object> atualizar(@Valid @RequestBody ClienteDTO cliente, @PathVariable Long id){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(
                     ClienteMapper.toDTO(
@@ -48,7 +49,7 @@ public class ClienteController {
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<Object> excluir(@PathVariable Long id){
+    public ResponseEntity<Object> excluir(@Valid @PathVariable Long id){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(
                     ClienteMapper.toDTO(
@@ -63,7 +64,7 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> encontrar(@PathVariable Long id){
+    public ResponseEntity<Object> encontrar(@Valid @PathVariable Long id){
         try {
             return ResponseEntity.status(HttpStatus.FOUND).body(
                     ClienteMapper.toDTO(
