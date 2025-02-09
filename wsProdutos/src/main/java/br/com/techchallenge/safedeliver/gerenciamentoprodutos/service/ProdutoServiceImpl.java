@@ -25,7 +25,7 @@ public class ProdutoServiceImpl implements ProdutoService {
     public Produto atualizar(Produto produto,Long produtoID) {
         Objects.requireNonNull(produtoID, idNotNull);
 
-        Produto produtoEncontrado = findById(produtoID);
+        Produto produtoEncontrado = encontrarPeloId(produtoID);
 
         produtoEncontrado.setDescricao(produto.getDescricao());
         produtoEncontrado.setPreco(produto.getPreco());
@@ -38,7 +38,7 @@ public class ProdutoServiceImpl implements ProdutoService {
     public Produto atualizarQuantidade(Long produtoID, Integer quantidade) {
         Objects.requireNonNull(produtoID, idNotNull);
 
-        Produto produtoEncontrado = findById(produtoID);
+        Produto produtoEncontrado = encontrarPeloId(produtoID);
 
         produtoEncontrado.setEstoque(quantidade);
 
@@ -49,7 +49,7 @@ public class ProdutoServiceImpl implements ProdutoService {
     public Produto excluir(Long codigoProduto) {
         Objects.requireNonNull(codigoProduto, idNotNull);
 
-        Produto produtoEncontrado = findById(codigoProduto);
+        Produto produtoEncontrado = encontrarPeloId(codigoProduto);
 
         produtoEncontrado.setDeletado(true);
         return produtoRepository.save(produtoEncontrado);
@@ -66,10 +66,23 @@ public class ProdutoServiceImpl implements ProdutoService {
     }
 
     @Override
-    public Produto findById(Long produtoID) {
+    public Produto encontrarPeloId(Long produtoID) {
         Objects.requireNonNull(produtoID, idNotNull);
 
         return produtoRepository.findById(produtoID)
                 .orElseThrow(() -> new RegistroNotFoundException("Produto "));
+    }
+
+    @Override
+    public Produto validarReduzir(Long produtoID, Integer quantidade) {
+        Produto produtoEncontrado = encontrarPeloId(produtoID);
+
+        if(produtoEncontrado.getEstoque() < quantidade) {
+            throw new IllegalArgumentException("Produto ["+produtoEncontrado.getDescricao()+"] sem estoque suficiente!");
+        }
+        Integer novoEstoque = produtoEncontrado.getEstoque() - quantidade;
+        produtoEncontrado.setEstoque(novoEstoque);
+
+        return produtoRepository.save(produtoEncontrado);
     }
 }

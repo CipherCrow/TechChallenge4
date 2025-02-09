@@ -1,9 +1,6 @@
 package br.com.techchallenge.safedeliver.gerenciamentopedidos.service;
 
-import br.com.techchallenge.safedeliver.gerenciamentopedidos.domain.model.entities.Cliente;
-import br.com.techchallenge.safedeliver.gerenciamentopedidos.domain.model.entities.Endereco;
-import br.com.techchallenge.safedeliver.gerenciamentopedidos.domain.model.entities.Pedido;
-import br.com.techchallenge.safedeliver.gerenciamentopedidos.domain.model.entities.Produto;
+import br.com.techchallenge.safedeliver.gerenciamentopedidos.domain.model.entities.*;
 
 import java.util.List;
 
@@ -19,6 +16,5 @@ public interface PedidoService {
     Pedido atualizarValorTotal(Long codigoPedido);
     Cliente encontrarCliente(Long codigoCliente);
     Endereco encontrarEndereco(Long codigoProduto);
-    Produto encontrarValidarProduto(Long codigoProduto);
-
+    boolean validarProdutosParaFechamento(List<ItemPedido> itens);
 }

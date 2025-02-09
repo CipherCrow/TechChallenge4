@@ -83,7 +83,7 @@ public class ProdutoController {
         try {
             return ResponseEntity.status(HttpStatus.FOUND).body(
                     ProdutoMapper.toDTO(
-                            produtoService.findById(id)
+                            produtoService.encontrarPeloId(id)
                     )
             );
         }catch(NullPointerException e){
@@ -116,6 +116,24 @@ public class ProdutoController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }catch(RegistroNotFoundException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/validarReduzir/{id}/{qtd}")
+    public ResponseEntity<Object> validaReduzEstoque(@PathVariable Long id,
+                                                     @PathVariable Integer qtd){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    ProdutoMapper.toDTO(
+                            produtoService.validarReduzir(id,qtd)
+                    )
+            );
+        }catch(NullPointerException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }catch(RegistroNotFoundException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }catch(IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
         }
     }
 }

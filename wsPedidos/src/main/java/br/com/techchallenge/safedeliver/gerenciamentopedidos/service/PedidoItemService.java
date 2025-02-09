@@ -10,6 +10,6 @@ public interface PedidoItemService {
     ItemPedido criar(Long codigoPedido, Long codigoItem, Integer quantidade);
     //boolean removerItem(Long codigoPedido, Long codigoItem);
     //ItemPedido findById(Long codigoPedido);
-    //List<ItemPedido> listarTodosDoPedido(Long codigoPedido);
+    //List<ItemPedido> validarItemsDoPedido(Long codigoPedido);
     Produto encontrarValidarProduto(Long codProduto, Integer quantidade);
 }

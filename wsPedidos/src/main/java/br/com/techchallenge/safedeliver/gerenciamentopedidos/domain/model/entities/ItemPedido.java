@@ -17,11 +17,15 @@ public class ItemPedido {
     @Column(name = "cod_itemPedido")
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "cod_produto")
+    private Produto produto;
+
     @Column(name = "nro_qtd",nullable = false)
     private int quantidade;
 
-    @Column(name = "nro_numero")
-    private Double valorProduto;
+    @Column(name = "vlr_vendido")
+    private Double valorVendidoUnitario;
 
     @Column(name = "nro_vlrTotalItem")
     private Double valorTotalItem;

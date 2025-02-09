@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -103,7 +102,9 @@ public class PedidoServiceImpl implements PedidoService {
             throw new IllegalArgumentException("Apenas pedidos em andamento podem ser confirmados!");
         }
 
-
+        if(!validarProdutosParaFechamento(pedido.getItens())){
+            throw new IllegalArgumentException("O estoque de um ou mais itens do carrinho estão indisponiveis!");
+        }
 
         pedido.setStatusPedido(StatusPedidoEnum.CONFIRMADO);
         pedido.setEndereco(endereco);
@@ -127,7 +128,7 @@ public class PedidoServiceImpl implements PedidoService {
 
         Double valorTotal =
                 pedido.getItens().stream()
-                        .map(ItemPedido::getValorProduto)
+                        .map(ItemPedido::getValorVendidoUnitario)
                         .reduce(0.0,(Double vlrTotal, Double vlrAtual ) ->
                                 vlrTotal + vlrAtual
                         );
@@ -182,36 +183,28 @@ public class PedidoServiceImpl implements PedidoService {
             }
         }
 
-
-        //return true;
         return enderecoEncontrado;
     }
 
     @Override
-    public Produto encontrarValidarProduto(Long codigoProduto) {
+    public boolean validarProdutosParaFechamento(List<ItemPedido> itens) {
 
         for(ItemPedido itemPedido : itens ){
             Integer quantidade = itemPedido.getQuantidade();
+            Long codProduto = itemPedido.getProduto().getId();
 
             ResponseEntity<String> response = restTemplate.getForEntity(
-                    "http://localhost:8080/api/produtos/{id}"
+                    "http://localhost:8080/produto/validarReduzir/{id}/{qtd}"
                     ,String.class
-                    ,codigoProduto
+                    ,codProduto
+                    ,quantidade
             );
 
-            if(response.getStatusCode() == HttpStatus.NOT_FOUND){
-                throw new RegistroNotFoundException("Produto");
-            }else{
-                try{
-                    JsonNode produtoJson = objectMapper.readTree((response.getBody()));
-                    int quantidadeProduto = produtoJson.get("quantidade").asInt();
-                }catch(Exception e){
-                    // tratar depois
-                }
+            if(response.getStatusCode() == HttpStatus.NOT_ACCEPTABLE){
+                return false;
             }
         }
 
-        //return true;
-        return null;
+        return true;
     }
 }

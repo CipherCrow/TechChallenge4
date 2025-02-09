@@ -11,5 +11,6 @@ public interface ProdutoService {
     Produto excluir(Long produtoID);
     List<Produto> findAll();
     List<Produto> findAllValidos();
-    Produto findById(Long produtoID);
+    Produto encontrarPeloId(Long produtoID);
+    Produto validarReduzir(Long produtoID,Integer quantidade);
 }
