@@ -1,16 +1,18 @@
 package br.com.techchallenge.safedeliver.gerenciamentopedidos.service;
 
+import br.com.techchallenge.safedeliver.gerenciamentopedidos.client.ClienteClient;
+import br.com.techchallenge.safedeliver.gerenciamentopedidos.client.EnderecoClient;
+import br.com.techchallenge.safedeliver.gerenciamentopedidos.client.ProdutoClient;
 import br.com.techchallenge.safedeliver.gerenciamentopedidos.domain.model.entities.*;
 import br.com.techchallenge.safedeliver.gerenciamentopedidos.domain.model.entities.enums.StatusPedidoEnum;
+import br.com.techchallenge.safedeliver.gerenciamentopedidos.exception.ComunicacaoException;
 import br.com.techchallenge.safedeliver.gerenciamentopedidos.exception.RegistroNotFoundException;
+import br.com.techchallenge.safedeliver.gerenciamentopedidos.mapper.ClienteMapper;
+import br.com.techchallenge.safedeliver.gerenciamentopedidos.mapper.EnderecoMapper;
 import br.com.techchallenge.safedeliver.gerenciamentopedidos.repository.PedidoRepository;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import feign.FeignException;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Objects;
@@ -19,21 +21,18 @@ import java.util.Objects;
 @AllArgsConstructor
 public class PedidoServiceImpl implements PedidoService {
 
+    private final ProdutoClient produtoClient;
     private PedidoRepository pedidoRepository;
     private PedidoItemService pedidoItemService;
-    private RestTemplate restTemplate;
-    private ObjectMapper objectMapper;
+    private ClienteClient clienteClient;
+    private EnderecoClient enderecoClient;
 
-    private static String idNotNull = "ID não pode ser nulo";
+    private static final String IDNOTNULL = "ID não pode ser nulo";
 
     @Override
     public Pedido criar(Long clienteInformado) {
-        Objects.requireNonNull(clienteInformado, idNotNull);
+        Objects.requireNonNull(clienteInformado, IDNOTNULL);
         Cliente cliente = encontrarCliente(clienteInformado);
-
-        if(cliente == null){
-            throw new RegistroNotFoundException("Cliente");
-        }
 
         Pedido pedido = Pedido.builder()
                 .cliente(cliente)
@@ -45,8 +44,8 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public Pedido inserirItem(Long codigoPedido, Long codigoItem, int quantidade) {
-        Objects.requireNonNull(codigoItem, idNotNull);
-        Objects.requireNonNull(codigoPedido, idNotNull);
+        Objects.requireNonNull(codigoItem, IDNOTNULL);
+        Objects.requireNonNull(codigoPedido, IDNOTNULL);
 
         Pedido pedidoEncontrado = encontrarPeloId(codigoPedido);
         ItemPedido itemPedido =  pedidoItemService.criar(codigoPedido, codigoItem, quantidade);
@@ -57,8 +56,8 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public Pedido removerItem(Long codigoPedido, Long codigoItemPedido) {
-        Objects.requireNonNull(codigoItemPedido, idNotNull);
-        Objects.requireNonNull(codigoPedido, idNotNull);
+        Objects.requireNonNull(codigoItemPedido, IDNOTNULL);
+        Objects.requireNonNull(codigoPedido, IDNOTNULL);
 
         Pedido pedidoEncontrado = encontrarPeloId(codigoPedido);
         ItemPedido itemPedido =
@@ -77,7 +76,7 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public Pedido encontrarPeloId(Long codigoPedido) {
-        Objects.requireNonNull(codigoPedido, idNotNull);
+        Objects.requireNonNull(codigoPedido, IDNOTNULL);
 
         return pedidoRepository.findById(codigoPedido).orElseThrow(
                 () -> new RegistroNotFoundException("Pedido"));
@@ -90,23 +89,17 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public Pedido confirmarPedido(Long codigoPedido, Long codigoEnderecoEntrega) {
-        Objects.requireNonNull(codigoEnderecoEntrega, idNotNull);
-
-        Endereco endereco = encontrarEndereco(codigoEnderecoEntrega);
-        if(endereco == null){
-            throw new RegistroNotFoundException("Endereco");
-        }
+        Objects.requireNonNull(codigoEnderecoEntrega, IDNOTNULL);
 
         Pedido pedido = encontrarPeloId(codigoPedido);
         if(pedido.getStatusPedido() != StatusPedidoEnum.EM_ANDAMENTO){
             throw new IllegalArgumentException("Apenas pedidos em andamento podem ser confirmados!");
         }
-
-        if(!validarProdutosParaFechamento(pedido.getItens())){
-            throw new IllegalArgumentException("O estoque de um ou mais itens do carrinho estão indisponiveis!");
-        }
-
         pedido.setStatusPedido(StatusPedidoEnum.CONFIRMADO);
+
+        validarProdutosParaFechamento(pedido.getItens());
+
+        Endereco endereco = encontrarEndereco(codigoEnderecoEntrega);
         pedido.setEndereco(endereco);
         return pedidoRepository.save(pedido);
     }
@@ -123,7 +116,7 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public Pedido atualizarValorTotal(Long codigoPedido) {
-        Objects.requireNonNull(codigoPedido, idNotNull);
+        Objects.requireNonNull(codigoPedido, IDNOTNULL);
         Pedido pedido = encontrarPeloId(codigoPedido);
 
         Double valorTotal =
@@ -139,72 +132,48 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public Cliente encontrarCliente(Long codigoCliente) {
-        Cliente cliente = null;
-
-        ResponseEntity<String> response = restTemplate.getForEntity(
-                "http://localhost:8080/cliente/{id}"
-                ,String.class
-                ,codigoCliente
-        );
-
-        if(response.getStatusCode() == HttpStatus.NOT_FOUND){
-            throw new RegistroNotFoundException("Cliente");
-        }else{
-            try{
-                JsonNode clienteJson = objectMapper.readTree((response.getBody()));
-                cliente = objectMapper.treeToValue(clienteJson.get("cliente"), Cliente.class);
-            }catch(Exception e){
-                // tratar depois
-            }
+        try {
+            return ClienteMapper.toEntity(
+                    clienteClient.encontrarCliente(codigoCliente)
+            );
         }
-
-        return cliente;
+        catch (FeignException.NotFound e) {
+            throw new RegistroNotFoundException("Cliente");
+        } catch (FeignException e) {
+            throw new ComunicacaoException("Cliente");
+        }
     }
 
     @Override
     public Endereco encontrarEndereco(Long codigoEndereco) {
-
-        Endereco enderecoEncontrado = null;
-
-        ResponseEntity<String> response = restTemplate.getForEntity(
-            "http://localhost:8080/endereco/{id}"
-            ,String.class
-            ,codigoEndereco
-        );
-
-        if(response.getStatusCode() == HttpStatus.NOT_FOUND){
-            throw new RegistroNotFoundException("Endereco");
-        }else{
-            try{
-                JsonNode enderecoJson = objectMapper.readTree((response.getBody()));
-                enderecoEncontrado = objectMapper.treeToValue(enderecoJson, Endereco.class);
-            }catch(Exception e){
-                // tratar depois
-            }
+        try{
+            return EnderecoMapper.toEntity(
+                    enderecoClient.encontrarEndereco(codigoEndereco)
+            );
         }
-
-        return enderecoEncontrado;
+            catch (FeignException.NotFound e) {
+            throw new RegistroNotFoundException("Endereco");
+        } catch (FeignException e) {
+            throw new ComunicacaoException("Endereco");
+        }
     }
 
     @Override
     public boolean validarProdutosParaFechamento(List<ItemPedido> itens) {
-
-        for(ItemPedido itemPedido : itens ){
-            Integer quantidade = itemPedido.getQuantidade();
-            Long codProduto = itemPedido.getProduto().getId();
-
-            ResponseEntity<String> response = restTemplate.getForEntity(
-                    "http://localhost:8080/produto/validarReduzir/{id}/{qtd}"
-                    ,String.class
-                    ,codProduto
-                    ,quantidade
-            );
-
-            if(response.getStatusCode() == HttpStatus.NOT_ACCEPTABLE){
-                return false;
+        try{
+            for(ItemPedido itemPedido : itens ){
+                Long codProduto = itemPedido.getProduto().getId();
+                Integer quantidade = itemPedido.getQuantidade();
+                produtoClient.validaReduzirEstoque(codProduto, quantidade);
             }
+            return true;
         }
-
-        return true;
+        catch (FeignException.NotFound e) {
+            throw new RegistroNotFoundException("Produto");
+        }catch (FeignException.BadRequest e) {
+            throw new IllegalArgumentException(e.getMessage());
+        } catch (FeignException e) {
+            throw new ComunicacaoException("Produto");
+        }
     }
 }

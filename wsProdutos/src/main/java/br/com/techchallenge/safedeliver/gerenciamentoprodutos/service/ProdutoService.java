@@ -7,10 +7,15 @@ import java.util.List;
 public interface ProdutoService {
     Produto criar(Produto produto);
     Produto atualizar(Produto produto,Long produtoID);
-    Produto atualizarQuantidade(Long produtoID,Integer quantidade);
+    Produto atualizarQuantidade(Long produtoID,
+                                Integer quantidade);
     Produto excluir(Long produtoID);
     List<Produto> findAll();
     List<Produto> findAllValidos();
     Produto encontrarPeloId(Long produtoID);
-    Produto validarReduzir(Long produtoID,Integer quantidade);
+    Produto validarEstoque(Long produtoID,
+                                  Integer quantidade);
+    Produto validarReduzirEstoque(Long produtoID,
+                                  Integer quantidade);
+
 }

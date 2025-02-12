@@ -81,12 +81,22 @@ public class ProdutoController {
         );
     }
 
-    @GetMapping("/validarReduzir/{id}/{qtd}")
-    public ResponseEntity<ProdutoDTO> validaReduzEstoque(@PathVariable Long id,
-                                                     @PathVariable Integer qtd){
+    @GetMapping("/validarEstoque/{id}")
+    public ResponseEntity<ProdutoDTO> validarEstoque(@PathVariable Long id,
+                                                           @RequestParam Integer qtd){
+        return ResponseEntity.status(HttpStatus.OK).body(
+                ProdutoMapper.toDTO(
+                        produtoService.validarEstoque(id,qtd)
+                )
+        );
+    }
+
+    @PostMapping("/validarReduzirEstoque/{id}")
+    public ResponseEntity<ProdutoDTO> validaReduzirEstoque(@PathVariable Long id,
+                                                           @RequestParam Integer qtd){
         return ResponseEntity.status(HttpStatus.OK).body(
             ProdutoMapper.toDTO(
-                produtoService.validarReduzir(id,qtd)
+                produtoService.validarReduzirEstoque(id,qtd)
             )
         );
     }

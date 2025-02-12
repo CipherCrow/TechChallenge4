@@ -2,7 +2,6 @@ package br.com.techchallenge.safedeliver.gerenciamentopedidos.controller;
 
 import br.com.techchallenge.safedeliver.gerenciamentopedidos.domain.model.entities.Pedido;
 import br.com.techchallenge.safedeliver.gerenciamentopedidos.dto.PedidoDTO;
-import br.com.techchallenge.safedeliver.gerenciamentopedidos.exception.RegistroNotFoundException;
 import br.com.techchallenge.safedeliver.gerenciamentopedidos.mapper.PedidoMapper;
 import br.com.techchallenge.safedeliver.gerenciamentopedidos.service.PedidoItemService;
 import br.com.techchallenge.safedeliver.gerenciamentopedidos.service.PedidoService;

@@ -70,18 +70,26 @@ public class ProdutoServiceImpl implements ProdutoService {
         Objects.requireNonNull(produtoID, idNotNull);
 
         return produtoRepository.findById(produtoID)
-                .orElseThrow(() -> new RegistroNotFoundException("Produto "));
+                .orElseThrow(() -> new RegistroNotFoundException("Produto"));
     }
 
     @Override
-    public Produto validarReduzir(Long produtoID, Integer quantidade) {
+    public Produto validarEstoque(Long produtoID,
+                                         Integer quantidade) {
         Produto produtoEncontrado = encontrarPeloId(produtoID);
 
         if(produtoEncontrado.getEstoque() < quantidade) {
             throw new IllegalArgumentException("Produto ["+produtoEncontrado.getDescricao()+"] sem estoque suficiente!");
         }
-        Integer novoEstoque = produtoEncontrado.getEstoque() - quantidade;
-        produtoEncontrado.setEstoque(novoEstoque);
+
+        return produtoEncontrado;
+    }
+
+    @Override
+    public Produto validarReduzirEstoque(Long produtoID,
+                                         Integer quantidade) {
+        Produto produtoEncontrado = validarEstoque(produtoID, quantidade);
+        produtoEncontrado.setEstoque(produtoEncontrado.getEstoque() - quantidade);
 
         return produtoRepository.save(produtoEncontrado);
     }
