@@ -1,5 +1,6 @@
 package br.com.techchallenge.safedeliver.gerenciamentopedidos.domain.model.entities;
 
+import br.com.techchallenge.safedeliver.gerenciamentopedidos.domain.model.entities.enums.StatusPedidoEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity(name = "tb_pedidos")
@@ -22,17 +24,22 @@ public class Pedido {
     private Long id;
 
     @Column(name = "cod_cliente",nullable = false)
-    @NotNull(message = "Deve existir um cliente!")
-    private int idCliente;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Cliente cliente;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "cod_pedido", referencedColumnName = "cod_pedido")
-    private ArrayList<ItemPedido> pedidos;
+    private List<ItemPedido> itens = new ArrayList<>();
 
     @Column(name = "nro_valorTotal")
-    private Double valorTotal;
+    private Double valorTotal = (double) 0;
 
     @Column(name = "cod_endereco",nullable = false)
-    private int idEndereco;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Endereco endereco;
+
+    @Column(name  = "ind_status")
+    @Enumerated(EnumType.STRING)
+    private StatusPedidoEnum statusPedido = StatusPedidoEnum.EM_ANDAMENTO;
 
 }

@@ -9,5 +9,6 @@ public interface EnderecoService {
     Endereco adicionar(Long codCliente, Endereco endereco);
     Endereco atualizar(Long codEndereco, Endereco endereco);
     List<Endereco> findByClient(Long codigoCliente);
+    Endereco buscarEnderecoPorId(Long codEndereco);
     Endereco remover(Long codEndereco);
 }

@@ -2,17 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile name="Annotation profile for gerenciamentoClientes" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
-        </processorPath>
-        <module name="gerenciamentoclientes" />
-      </profile>
-      <profile name="Annotation profile for gerenciamentoEntregas" enabled="true">
+      <profile name="Annotation profile for gerenciamentoProdutos" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -20,8 +10,9 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
         <module name="gerenciamentoEntregas" />
-        <module name="gerenciamentoPedidos" />
+        <module name="gerenciamentoclientes" />
         <module name="gerenciamentoProdutos" />
+        <module name="gerenciamentoPedidos" />
       </profile>
     </annotationProcessing>
   </component>
