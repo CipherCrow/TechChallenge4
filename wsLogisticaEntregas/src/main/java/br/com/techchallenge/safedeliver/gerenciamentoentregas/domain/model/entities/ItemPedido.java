@@ -7,27 +7,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity(name = "tb_entregas")
+@Entity(name = "tb_itemPedidos")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Entrega {
+public class ItemPedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cod_entrega")
+    @Column(name = "cod_itemPedido")
     private Long id;
 
-    @Column(name = "cod_pedido",nullable = false)
-    private int codigoPedido;
-
-    @Column(name = "cod_endereco")
-    private int codigoEnderecoEntrega;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    private Entregador entregador;
+    @Column(name = "cod_produto")
+    private Produto produto;
 
-    @Column(name = "nro_PrazoDias")
-    private int prazoEntrega;
+    @Column(name = "nro_qtd",nullable = false)
+    private int quantidade;
+
+    @Column(name = "vlr_vendido")
+    private Double valorVendidoUnitario;
 
     @Column(name = "nro_vlrTotalItem")
     private Double valorTotalItem;
