@@ -1,5 +1,6 @@
 package br.com.techchallenge.safedeliver.gerenciamentoentregas.mapper;
 
+import br.com.techchallenge.safedeliver.gerenciamentoentregas.domain.model.entities.Pedido;
 import br.com.techchallenge.safedeliver.gerenciamentoentregas.dto.PedidoDTO;
 
 public class PedidoMapper {
