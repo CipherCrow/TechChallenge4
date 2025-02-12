@@ -1,6 +1,6 @@
 package br.com.techchallenge.safedeliver.gerenciamentoentregas.controller;
 
-import br.com.techchallenge.safedeliver.gerenciamentoclientes.exception.RegistroNotFoundException;
+import br.com.techchallenge.safedeliver.gerenciamentoentregas.exception.RegistroNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -7,28 +7,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity(name = "tb_entregas")
+@Entity(name = "tb_rastreamento")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Entrega {
+public class Rastreamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cod_entrega")
     private Long id;
 
     @Column(name = "cod_pedido",nullable = false)
-    private int codigoPedido;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Pedido pedido;
 
     @Column(name = "cod_endereco")
-    private int codigoEnderecoEntrega;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Endereco endereco;
 
+    @Column(name = "cod_entregador")
     @ManyToOne(fetch = FetchType.LAZY)
     private Entregador entregador;
-
-    @Column(name = "nro_PrazoDias")
-    private int prazoEntrega;
-
-    @Column(name = "nro_vlrTotalItem")
-    private Double valorTotalItem;
 }

@@ -25,10 +25,6 @@ public class Entregador {
     @NotNull(message = "Deve existir um nome para o entregador!")
     private String nome;
 
-    @Column(name = "des_cpf",nullable = false)
-    @NotNull(message = "Deve existir um cpf para o entregador!")
-    private String cpf;
-
     @Column(name = "des_email")
     private String email;
 
