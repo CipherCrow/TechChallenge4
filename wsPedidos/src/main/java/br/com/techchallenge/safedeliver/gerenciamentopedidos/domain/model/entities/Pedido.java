@@ -22,7 +22,7 @@ public class Pedido {
     @Column(name = "cod_pedido")
     private Long id;
 
-    @Column(name = "cod_cliente",nullable = false)
+    @JoinColumn(name = "cod_cliente",nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Cliente cliente;
 
@@ -33,7 +33,7 @@ public class Pedido {
     @Column(name = "nro_valorTotal")
     private Double valorTotal = (double) 0;
 
-    @Column(name = "cod_endereco",nullable = false)
+    @JoinColumn(name = "cod_endereco",nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Endereco endereco;
 
