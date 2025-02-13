@@ -1,6 +1,9 @@
 package br.com.techchallenge.safedeliver.gerenciamentopedidos.service;
 
-import br.com.techchallenge.safedeliver.gerenciamentopedidos.domain.model.entities.*;
+import br.com.techchallenge.safedeliver.gerenciamentopedidos.domain.model.entities.Cliente;
+import br.com.techchallenge.safedeliver.gerenciamentopedidos.domain.model.entities.Endereco;
+import br.com.techchallenge.safedeliver.gerenciamentopedidos.domain.model.entities.ItemPedido;
+import br.com.techchallenge.safedeliver.gerenciamentopedidos.domain.model.entities.Pedido;
 
 import java.util.List;
 
