@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Entity(name = "tb_cliente")
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class Cliente {
 
     @Id

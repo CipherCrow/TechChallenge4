@@ -38,6 +38,7 @@ public class Cliente {
     private int idade;
 
     @Column(name = "ind_deletado")
+    @Builder.Default
     private boolean deletado = false;
 
 }

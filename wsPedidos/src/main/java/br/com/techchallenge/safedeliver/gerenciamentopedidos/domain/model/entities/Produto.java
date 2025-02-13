@@ -32,6 +32,7 @@ public class Produto {
     private Double preco;
 
     @Column(name = "ind_deletado")
+    @Builder.Default
     private boolean deletado = false;
 
 }

@@ -39,6 +39,7 @@ public class Endereco {
     private Cliente cliente;
 
     @Column(name = "ind_deletado")
+    @Builder.Default
     private boolean deletado = false;
 
 }

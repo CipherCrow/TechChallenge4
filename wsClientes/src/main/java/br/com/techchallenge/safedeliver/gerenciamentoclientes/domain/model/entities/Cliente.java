@@ -8,10 +8,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity(name = "tb_cliente")
+@Entity
+@Table(name = "tb_cliente")
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class Cliente {
 
     @Id
