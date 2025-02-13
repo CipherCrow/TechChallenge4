@@ -2,6 +2,8 @@ package br.com.techchallenge.safedeliver.gerenciamentoprodutos.mapper;
 
 import br.com.techchallenge.safedeliver.gerenciamentoprodutos.domain.model.entities.Produto;
 import br.com.techchallenge.safedeliver.gerenciamentoprodutos.dto.ProdutoDTO;
+import lombok.Builder;
+
 
 public class ProdutoMapper {
     private ProdutoMapper(){
@@ -19,12 +21,12 @@ public class ProdutoMapper {
     }
 
     public static Produto toEntity(ProdutoDTO dto) {
-        return Produto.builder()
-                .id(dto.id())
-                .descricao(dto.descricao())
-                .estoque(dto.estoque())
-                .preco(dto.preco())
-                .deletado(dto.deletado())
-                .build();
+       Produto produto = new Produto();
+                produto.setId(dto.id());
+                produto.setDescricao(dto.descricao());
+                produto.setEstoque(dto.estoque());
+                produto.setPreco(dto.preco());
+                produto.setDeletado(dto.deletado());
+        return produto;
     }
 }
