@@ -2,8 +2,6 @@ package br.com.techchallenge.safedeliver.gerenciamentoprodutos.mapper;
 
 import br.com.techchallenge.safedeliver.gerenciamentoprodutos.domain.model.entities.Produto;
 import br.com.techchallenge.safedeliver.gerenciamentoprodutos.dto.ProdutoDTO;
-import br.com.techchallenge.safedeliver.gerenciamentoclientes.domain.model.entities.Cliente;
-import br.com.techchallenge.safedeliver.gerenciamentoclientes.dto.ClienteDTO;
 
 public class ProdutoMapper {
     private ProdutoMapper(){

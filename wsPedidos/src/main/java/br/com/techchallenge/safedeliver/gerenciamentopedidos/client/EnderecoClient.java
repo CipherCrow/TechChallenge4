@@ -1,6 +1,5 @@
 package br.com.techchallenge.safedeliver.gerenciamentopedidos.client;
 
-import br.com.techchallenge.safedeliver.gerenciamentopedidos.dto.ClienteDTO;
 import br.com.techchallenge.safedeliver.gerenciamentopedidos.dto.EnderecoDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

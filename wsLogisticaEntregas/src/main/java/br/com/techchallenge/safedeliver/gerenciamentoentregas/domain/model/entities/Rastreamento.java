@@ -24,8 +24,5 @@ public class Rastreamento {
     @Column(name = "cod_endereco")
     @OneToOne(cascade = CascadeType.ALL)
     private Endereco endereco;
-
-    @Column(name = "cod_entregador")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Entregador entregador;
+    
 }
