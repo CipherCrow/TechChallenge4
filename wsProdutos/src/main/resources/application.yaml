@@ -34,6 +34,9 @@ management:
   endpoint:
     shutdown:
       enabled: true
+  # batch:
+    # jdbc:
+      # initialize-schema: always
 
 
 logging:
