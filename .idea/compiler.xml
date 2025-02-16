@@ -10,10 +10,18 @@
         <processorPath useProcessorModulePath="true">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
-        <module name="gerenciamentoEntregas" />
         <module name="gerenciamentoclientes" />
-        <module name="gerenciamentoProdutos" />
         <module name="gerenciamentoPedidos" />
+        <module name="gerenciamentoProdutos" />
+      </profile>
+      <profile name="Annotation profile for gerenciamentoEntregas" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath>
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+        </processorPath>
+        <module name="gerenciamentoEntregas" />
       </profile>
     </annotationProcessing>
   </component>

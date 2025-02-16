@@ -11,8 +11,8 @@ public class LocalizacaoMapper {
     public static LocalizacaoDTO toDTO(Localizacao localizacao) {
         return new LocalizacaoDTO(
                 localizacao.getId(),
-                localizacao.getLatitude(),
                 localizacao.getLongitude(),
+                localizacao.getLatitude(),
                 localizacao.getHoraRegistro(),
                 localizacao.getRastreamento()
         );

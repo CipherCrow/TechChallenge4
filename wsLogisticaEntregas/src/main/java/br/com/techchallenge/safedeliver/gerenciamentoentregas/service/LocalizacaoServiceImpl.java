@@ -5,6 +5,7 @@ import br.com.techchallenge.safedeliver.gerenciamentoentregas.domain.model.entit
 import br.com.techchallenge.safedeliver.gerenciamentoentregas.domain.model.entities.Rastreamento;
 import br.com.techchallenge.safedeliver.gerenciamentoentregas.exception.RegistroNotFoundException;
 import br.com.techchallenge.safedeliver.gerenciamentoentregas.repository.LocalizacaoRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +13,13 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class LocalizacaoServiceImpl implements LocalizacaoService {
 
     private LocalizacaoRepository localizacaoRepository;
 
     private RastreamentoService rastreamentoService;
+
     private static final String IDNOTNULL = "ID não pode ser nulo";
 
     @Override

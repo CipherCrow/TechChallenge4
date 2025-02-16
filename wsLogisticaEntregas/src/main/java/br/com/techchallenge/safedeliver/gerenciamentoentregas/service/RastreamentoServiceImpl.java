@@ -13,6 +13,7 @@ import br.com.techchallenge.safedeliver.gerenciamentoentregas.mapper.EnderecoMap
 import br.com.techchallenge.safedeliver.gerenciamentoentregas.mapper.PedidoMapper;
 import br.com.techchallenge.safedeliver.gerenciamentoentregas.repository.RastreamentoRepository;
 import feign.FeignException;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,15 +23,13 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class RastreamentoServiceImpl implements RastreamentoService {
 
-    @Autowired
     private RastreamentoRepository rastreamentoRepository;
 
-    @Autowired
     private EnderecoClient enderecoClient;
 
-    @Autowired
     private PedidoClient pedidoClient;
 
     private static final String IDNOTNULL = "ID não pode ser nulo";
@@ -39,7 +38,7 @@ public class RastreamentoServiceImpl implements RastreamentoService {
                                       Long codEndereco) {
         Pedido pedido = encontrarPedido(codPedido);
         if(!pedido.getStatusPedido().equals(StatusPedidoEnum.CONFIRMADO)) {
-            throw new ComunicacaoException("Só é possível criar rastreio para pedidos confirmados!");
+            throw new IllegalArgumentException("Só é possível criar rastreio para pedidos confirmados!");
         }
 
         Endereco endereco = encontrarEndereco(codEndereco);
