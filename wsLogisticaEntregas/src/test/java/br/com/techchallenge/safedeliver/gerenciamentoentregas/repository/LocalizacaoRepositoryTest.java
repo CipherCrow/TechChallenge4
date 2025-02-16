@@ -46,7 +46,7 @@ class LocalizacaoRepositoryTest {
     class buscarLocalizacoesDoCliente {
         @Test
         @DisplayName("Deve buscar uma lista com sucesso!")
-        void buscarLocalizacoesDoCliente() {
+        void localizacoesDoCliente() {
             when(localizacaoRepository.findLocalizacaosByRastreamento_Id(rastreia.getId()))
                     .thenReturn(Optional.ofNullable(localizacoes));
 

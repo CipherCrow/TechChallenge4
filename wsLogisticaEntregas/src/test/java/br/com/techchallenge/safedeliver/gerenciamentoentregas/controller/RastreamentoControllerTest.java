@@ -35,8 +35,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class RastreamentoControllerTest {
 
-    @InjectMocks
-    private RastreamentoController rastreamentoController;
+//    @InjectMocks
+//    private RastreamentoController rastreamentoController;
 
     @Mock
     private RastreamentoService rastreamentoService;
@@ -52,7 +52,6 @@ class RastreamentoControllerTest {
 
     private Pedido pedidoConfirmado;
     private Rastreamento rastreamento;
-    private RastreamentoDTO rastreamentoDTO;
     private Localizacao localizacao;
     private LocalizacaoDTO localizacaoDTO;
 
@@ -82,7 +81,7 @@ class RastreamentoControllerTest {
                 .pedido(pedidoConfirmado)
                 .build();
 
-        rastreamentoDTO = RastreamentoMapper.toDTO(rastreamento);
+        RastreamentoDTO rastreamentoDTO = RastreamentoMapper.toDTO(rastreamento);
 
         // Configura objeto dummy para Localizacao
         localizacao = Localizacao.builder()
