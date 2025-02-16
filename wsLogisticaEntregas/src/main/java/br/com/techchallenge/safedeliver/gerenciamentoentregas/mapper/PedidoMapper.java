@@ -21,6 +21,7 @@ public class PedidoMapper {
 
     public static Pedido toEntity(PedidoDTO dto) {
         return Pedido.builder()
+                .id(dto.id())
                 .cliente(dto.cliente())
                 .itens(dto.itens())
                 .valorTotal(dto.valorTotal())

@@ -6,7 +6,6 @@ import br.com.techchallenge.safedeliver.gerenciamentoclientes.mapper.EnderecoMap
 import br.com.techchallenge.safedeliver.gerenciamentoclientes.service.EnderecoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

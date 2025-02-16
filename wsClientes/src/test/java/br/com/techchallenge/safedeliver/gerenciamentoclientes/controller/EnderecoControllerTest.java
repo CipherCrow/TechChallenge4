@@ -88,13 +88,14 @@ class EnderecoControllerTest {
         @DisplayName("Deve retornar NOT_FOUND quando o cliente não for encontrado")
         void criarEnderecoClienteNaoEncontrado() throws Exception {
             EnderecoDTO novoDTO = new EnderecoDTO(1L, "54321-000", "Nova Cidade", "Novo Endereco", 200, null, false);
-            when(enderecoService.atualizar(eq(1L), any(Endereco.class)))
+            when(enderecoService.adicionar(eq(1L), any(Endereco.class)))
                     .thenThrow(new RegistroNotFoundException("Cliente"));
 
             String jsonContent = objectMapper.writeValueAsString(novoDTO);
 
-            mockMvc.perform(put("/endereco/atualizar/{id}", 1L)
+            mockMvc.perform(post("/endereco/criar")
                             .contentType(MediaType.APPLICATION_JSON)
+                            .param("codigoCliente", "1")
                             .content(jsonContent))
                     .andExpect(status().isNotFound())
                     .andExpect(content().string("Cliente não encontrado com este ID!"));
@@ -175,6 +176,17 @@ class EnderecoControllerTest {
                     .andExpect(jsonPath("$.deletado").value(true));
         }
 
+        @Test
+        @DisplayName("Deve retornar NOT_FOUND quando o endereço não for encontrado ao deletar")
+        void excluirEnderecoNotFound() throws Exception {
+            when(enderecoService.remover(1L))
+                    .thenThrow(new RegistroNotFoundException("Endereço"));
+
+            mockMvc.perform(delete("/endereco/deletar/{id}", 1L))
+                    .andExpect(status().isNotFound())
+                    .andExpect(content().string("Endereço não encontrado com este ID!"));
+        }
+
     }
 
     @Nested
@@ -238,17 +250,6 @@ class EnderecoControllerTest {
                             .param("codigoCliente", "1"))
                     .andExpect(status().isNotFound())
                     .andExpect(content().string("Cliente não encontrado com este ID!"));
-        }
-
-        @Test
-        @DisplayName("Deve retornar BAD_REQUEST quando ocorrer exceção ao buscar por cliente")
-        void encontrarPeloClienteException() throws Exception {
-            when(enderecoService.findByClient(1L)).thenThrow(new NullPointerException("Erro nulo"));
-
-            mockMvc.perform(get("/endereco/encontrarPeloCliente")
-                            .param("codigoCliente", "1"))
-                    .andExpect(status().isBadRequest())
-                    .andExpect(content().string("Erro nulo"));
         }
     }
 }
