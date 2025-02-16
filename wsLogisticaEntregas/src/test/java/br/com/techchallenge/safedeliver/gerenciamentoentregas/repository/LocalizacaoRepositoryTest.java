@@ -1,7 +1,6 @@
 package br.com.techchallenge.safedeliver.gerenciamentoentregas.repository;
 
 import br.com.techchallenge.safedeliver.gerenciamentoentregas.domain.model.entities.Localizacao;
-import br.com.techchallenge.safedeliver.gerenciamentoentregas.domain.model.entities.Produto;
 import br.com.techchallenge.safedeliver.gerenciamentoentregas.domain.model.entities.Rastreamento;
 import org.junit.jupiter.api.*;
 import org.mockito.Mock;

@@ -15,7 +15,6 @@ import br.com.techchallenge.safedeliver.gerenciamentoentregas.repository.Rastrea
 import feign.FeignException;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

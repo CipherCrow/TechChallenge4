@@ -6,7 +6,6 @@ import br.com.techchallenge.safedeliver.gerenciamentoentregas.domain.model.entit
 import br.com.techchallenge.safedeliver.gerenciamentoentregas.exception.RegistroNotFoundException;
 import br.com.techchallenge.safedeliver.gerenciamentoentregas.repository.LocalizacaoRepository;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

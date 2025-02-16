@@ -1,14 +1,12 @@
 package br.com.techchallenge.safedeliver.gerenciamentoentregas.repository;
 
 import br.com.techchallenge.safedeliver.gerenciamentoentregas.domain.model.entities.Endereco;
-import br.com.techchallenge.safedeliver.gerenciamentoentregas.domain.model.entities.Localizacao;
 import br.com.techchallenge.safedeliver.gerenciamentoentregas.domain.model.entities.Pedido;
 import br.com.techchallenge.safedeliver.gerenciamentoentregas.domain.model.entities.Rastreamento;
 import org.junit.jupiter.api.*;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
