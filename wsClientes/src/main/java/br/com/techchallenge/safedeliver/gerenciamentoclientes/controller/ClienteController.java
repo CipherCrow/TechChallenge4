@@ -53,7 +53,7 @@ public class ClienteController {
     public ResponseEntity<ClienteDTO> encontrar(@Valid @PathVariable Long id){
         return ResponseEntity.status(HttpStatus.FOUND).body(
             ClienteMapper.toDTO(
-                    clienteService.findById(id)
+                    clienteService.encontrarPeloID(id)
             )
         );
     }

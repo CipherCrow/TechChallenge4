@@ -20,8 +20,9 @@ public class EnderecoServiceImpl implements EnderecoService{
 
     @Override
     public Endereco adicionar(Long codCliente, Endereco endereco) {
+        Objects.requireNonNull(codCliente, idNotNull);
 
-        Cliente clienteEncontrado = clienteService.findById(codCliente);
+        Cliente clienteEncontrado = clienteService.encontrarPeloID(codCliente);
         endereco.setCliente(clienteEncontrado);
 
         return enderecoRepository.save(endereco);
@@ -36,21 +37,21 @@ public class EnderecoServiceImpl implements EnderecoService{
         Objects.requireNonNull(codEndereco, idNotNull);
 
         Endereco enderecoEncontrado = enderecoRepository.findById(codEndereco)
-                .orElseThrow(() -> new RegistroNotFoundException("Endereço "));
+                .orElseThrow(() -> new RegistroNotFoundException("Endereço"));
 
         enderecoEncontrado.setCep(endereco.getCep());
         enderecoEncontrado.setCidade(endereco.getCidade());
         enderecoEncontrado.setDescricao(endereco.getDescricao());
         enderecoEncontrado.setNumero(endereco.getNumero());
 
-        return enderecoRepository.save(endereco);
+        return enderecoRepository.save(enderecoEncontrado);
     }
 
     @Override
     public List<Endereco> findByClient(Long codigoCliente) {
         Objects.requireNonNull(codigoCliente, idNotNull);
 
-        Cliente clienteEncontrado = clienteService.findById(codigoCliente);
+        Cliente clienteEncontrado = clienteService.encontrarPeloID(codigoCliente);
 
         return enderecoRepository.findEnderecoByCliente_Id(clienteEncontrado.getId());
     }
@@ -60,7 +61,7 @@ public class EnderecoServiceImpl implements EnderecoService{
         Objects.requireNonNull(codEndereco, idNotNull);
 
         return enderecoRepository.findById(codEndereco)
-                .orElseThrow(() -> new RegistroNotFoundException("Endereço "));
+                .orElseThrow(() -> new RegistroNotFoundException("Endereço"));
     }
 
     @Override
@@ -68,7 +69,7 @@ public class EnderecoServiceImpl implements EnderecoService{
         Objects.requireNonNull(codEndereco, idNotNull);
 
         Endereco enderecoEncontrado = enderecoRepository.findById(codEndereco)
-                .orElseThrow(() -> new RegistroNotFoundException("Endereço "));
+                .orElseThrow(() -> new RegistroNotFoundException("Endereço"));
 
         enderecoEncontrado.setDeletado(true);
         return enderecoRepository.save(enderecoEncontrado);
