@@ -1,6 +1,6 @@
 package br.com.techchallenge.safedeliver.gerenciamentoprodutos.controller;
 
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;

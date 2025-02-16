@@ -19,11 +19,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EnderecoController {
 
-    @Autowired
     private final EnderecoService enderecoService;
 
     @PostMapping("/criar")
-    public ResponseEntity<EnderecoDTO> criar(@RequestBody EnderecoDTO endereco,@RequestParam Long codigoCliente){
+    public ResponseEntity<EnderecoDTO> criar(@RequestBody EnderecoDTO endereco,@Valid @RequestParam Long codigoCliente){
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 EnderecoMapper.toDTO(
                         enderecoService.adicionar(codigoCliente,EnderecoMapper.toEntity(endereco))

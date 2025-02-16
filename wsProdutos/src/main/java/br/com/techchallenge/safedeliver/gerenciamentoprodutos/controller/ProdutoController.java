@@ -6,6 +6,8 @@ import br.com.techchallenge.safedeliver.gerenciamentoprodutos.mapper.ProdutoMapp
 import br.com.techchallenge.safedeliver.gerenciamentoprodutos.service.ProdutoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +18,14 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/produto")
-@RequiredArgsConstructor
 public class ProdutoController {
 
-    @Autowired
     private final ProdutoService produtoService;
+
+    @Autowired
+    public ProdutoController(ProdutoService produtoService) {
+        this.produtoService = produtoService;
+    }
 
     @PostMapping("/criar")
     public ResponseEntity<ProdutoDTO> criar(@RequestBody ProdutoDTO cliente){

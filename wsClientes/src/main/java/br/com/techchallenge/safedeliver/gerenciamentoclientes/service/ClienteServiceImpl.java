@@ -23,10 +23,7 @@ public class ClienteServiceImpl implements ClienteService{
 
     @Override
     public Cliente atualizar(Cliente cliente, Long codCliente) {
-        Objects.requireNonNull(codCliente, idNotNull);
-
-        Cliente clienteEncontrado = clienteRepository.findById(codCliente)
-                .orElseThrow(() -> new RegistroNotFoundException("Cliente "));
+        Cliente clienteEncontrado = encontrarPeloID(codCliente);
 
         clienteEncontrado.setNome(cliente.getNome());
         clienteEncontrado.setEmail(cliente.getEmail());
@@ -42,7 +39,7 @@ public class ClienteServiceImpl implements ClienteService{
         Objects.requireNonNull(codCliente, idNotNull);
 
         Cliente clienteEncontrado = clienteRepository.findById(codCliente)
-                .orElseThrow(() -> new RegistroNotFoundException("Cliente "));
+                .orElseThrow(() -> new RegistroNotFoundException("Cliente"));
 
         clienteEncontrado.setDeletado(true);
         return clienteRepository.save(clienteEncontrado);
@@ -54,10 +51,10 @@ public class ClienteServiceImpl implements ClienteService{
     }
 
     @Override
-    public Cliente findById(Long codCliente) {
+    public Cliente encontrarPeloID(Long codCliente) {
         Objects.requireNonNull(codCliente, idNotNull);
 
         return clienteRepository.findById(codCliente)
-                .orElseThrow(() -> new RegistroNotFoundException("Cliente "));
+                .orElseThrow(() -> new RegistroNotFoundException("Cliente"));
     }
 }

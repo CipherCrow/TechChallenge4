@@ -4,11 +4,7 @@ import br.com.techchallenge.safedeliver.gerenciamentoprodutos.domain.model.entit
 import br.com.techchallenge.safedeliver.gerenciamentoprodutos.dto.ProdutoDTO;
 import lombok.Builder;
 
-
 public class ProdutoMapper {
-    private ProdutoMapper(){
-        throw new IllegalStateException("Classe de utilidade");
-    }
 
     public static ProdutoDTO toDTO(Produto produto) {
         return new ProdutoDTO(

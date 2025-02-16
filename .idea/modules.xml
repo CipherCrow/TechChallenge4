@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/TechChallenge4.iml" filepath="$PROJECT_DIR$/.idea/TechChallenge4.iml" />
       <module fileurl="file://$PROJECT_DIR$/wsPedidos/gerenciamentoPedidos.iml" filepath="$PROJECT_DIR$/wsPedidos/gerenciamentoPedidos.iml" />
       <module fileurl="file://$PROJECT_DIR$/wsClientes/gerenciamentoclientes.iml" filepath="$PROJECT_DIR$/wsClientes/gerenciamentoclientes.iml" />
     </modules>
