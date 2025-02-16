@@ -13,7 +13,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class ProdutoServiceImpl implements ProdutoService {
 
-    ProdutoRepository produtoRepository;
+    private final ProdutoRepository produtoRepository;
     private static String idNotNull = "ID não pode ser nulo";
 
     @Override

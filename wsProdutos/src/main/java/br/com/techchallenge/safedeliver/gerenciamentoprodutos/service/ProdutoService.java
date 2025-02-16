@@ -17,5 +17,4 @@ public interface ProdutoService {
                                   Integer quantidade);
     Produto validarReduzirEstoque(Long produtoID,
                                   Integer quantidade);
-
 }
