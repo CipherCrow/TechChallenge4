@@ -6,6 +6,7 @@ import br.com.techchallenge.safedeliver.gerenciamentopedidos.mapper.PedidoMapper
 import br.com.techchallenge.safedeliver.gerenciamentopedidos.service.PedidoItemService;
 import br.com.techchallenge.safedeliver.gerenciamentopedidos.service.PedidoService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,13 +18,11 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/pedido")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class PedidoController {
 
-    @Autowired
     private final PedidoService pedidoService;
 
-    @Autowired
     private final PedidoItemService pedidoItemService;
 
     @PostMapping("/criar")

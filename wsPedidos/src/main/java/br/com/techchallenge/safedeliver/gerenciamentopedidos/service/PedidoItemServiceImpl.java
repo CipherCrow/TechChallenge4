@@ -9,10 +9,12 @@ import br.com.techchallenge.safedeliver.gerenciamentopedidos.mapper.ProdutoMappe
 import br.com.techchallenge.safedeliver.gerenciamentopedidos.repository.ItemPedidoRepository;
 import feign.FeignException;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class PedidoItemServiceImpl implements PedidoItemService {
 
     private ItemPedidoRepository itemPedidoRepository;
