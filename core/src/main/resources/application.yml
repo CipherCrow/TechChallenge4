@@ -1,0 +1,70 @@
+server:
+  port: 8080  # Porta do Gateway
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: cliente-service
+          uri: http://clientes:8081
+          predicates:
+            - Path=/clientes/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: clientesCircuitBreaker
+                fallbackUri: forward:/fallback/clientes
+        - id: pedido-service
+          uri: http://pedidos:8082
+          predicates:
+            - Path=/pedidos/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: pedidosCircuitBreaker
+                fallbackUri: forward:/fallback/pedidos
+        - id: produto-service
+          uri: http://produtos:8083
+          predicates:
+            - Path=/produtos/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: produtosCircuitBreaker
+                fallbackUri: forward:/fallback/produtos
+        - id: endereco-service
+          uri: http://enderecos:8084
+          predicates:
+            - Path=/enderecos/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: enderecosCircuitBreaker
+                fallbackUri: forward:/fallback/enderecos
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: Serviço de Clientes
+        url: /clientes/v3/api-docs
+      - name: Serviço de Pedidos
+        url: /pedidos/v3/api-docs
+      - name: Serviço de Produtos
+        url: /produtos/v3/api-docs
+      - name: Serviço de Endereços
+        url: /enderecos/v3/api-docs
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      clientesCircuitBreaker:
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 5
+        slidingWindowSize: 10
+      pedidosCircuitBreaker:
+        failureRateThreshold: 50
+      produtosCircuitBreaker:
+        failureRateThreshold: 50
+      enderecosCircuitBreaker:
+        failureRateThreshold: 50  # ✅

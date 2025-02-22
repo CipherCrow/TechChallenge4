@@ -28,7 +28,7 @@ public class Localizacao {
     @Column(name = "dat_registro")
     private LocalDateTime horaRegistro;
 
-    @Column(name = "cod_rastreamento")
+    @JoinColumn(name = "cod_rastreamento")
     @ManyToOne(fetch = FetchType.LAZY)
     private Rastreamento rastreamento;
 }

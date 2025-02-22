@@ -80,12 +80,12 @@ public class ClienteServiceTest {
         }
 
         @Test
-        @DisplayName("Deve lançar NullPointerException se o ID for nulo")
+        @DisplayName("Deve lançar Exception se o ID for nulo")
         void atualizarClienteComIdNulo() {
             Cliente novoCliente = new Cliente(null, "Novo Nome", "11122233344", "novoemail@example.com", "987654321", 35, false);
 
             assertThatThrownBy(() -> clienteService.atualizar(novoCliente, null))
-                    .isInstanceOf(NullPointerException.class)
+                    .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("ID não pode ser nulo");
         }
 
@@ -120,10 +120,10 @@ public class ClienteServiceTest {
         }
 
         @Test
-        @DisplayName("Deve lançar NullPointerException se o ID for nulo")
+        @DisplayName("Deve lançar Exception se o ID for nulo")
         void excluirClienteComIdNulo() {
             assertThatThrownBy(() -> clienteService.excluir(null))
-                    .isInstanceOf(NullPointerException.class)
+                    .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("ID não pode ser nulo");
         }
 
@@ -173,10 +173,10 @@ public class ClienteServiceTest {
         }
 
         @Test
-        @DisplayName("Deve lançar NullPointerException se o ID for nulo")
+        @DisplayName("Deve lançar Exception se o ID for nulo")
         void findByIdComIdNulo() {
             assertThatThrownBy(() -> clienteService.encontrarPeloID(null))
-                    .isInstanceOf(NullPointerException.class)
+                    .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("ID não pode ser nulo");
         }
 

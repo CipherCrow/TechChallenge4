@@ -1,23 +1,21 @@
 server:
-  port: 8083
+  port: 8084
   shutdown: graceful
   servlet:
     encoding:
       charset: UTF-8
       enabled: true
       force: true
+
 spring:
   datasource:
     url: jdbc:h2:mem:safedeliver
-    #    url: jdbc:h2:file:./target/h2.db;AUTO_SERVER=true
-    #    url: jdbc:h2:tcp://localhost:9092/mem:testdb
     username: sa
     password:
     driverClassName: org.h2.Driver
   jpa:
     database: h2
     database-platform: org.hibernate.dialect.H2Dialect
-    # Apenas para teste
     defer-datasource-initialization: true
     hibernate:
       ddl-auto: create-drop
@@ -26,6 +24,7 @@ spring:
       mode: always
   lifecycle:
     timeout-per-shutdown-phase: "5s"
+
 management:
   endpoints:
     web:
@@ -34,9 +33,12 @@ management:
   endpoint:
     shutdown:
       enabled: true
-  # batch:
-    # jdbc:
-      # initialize-schema: always
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
 
 
 logging:

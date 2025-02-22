@@ -9,8 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.techchallenge.safedeliver</groupId>
-	<artifactId>gerenciamentoEntregas</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>wsLogisticaEntregas</artifactId>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
 	<name>gerenciamentoEntregas</name>
 	<description>Projeto realizado para o quarto modulo da pós graduação FIAP.</description>
 	<url/>
@@ -30,6 +31,17 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>br.com.techchallenge.safedeliver</groupId>
+			<artifactId>core</artifactId>
+			<version>1.0.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-webflux</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
