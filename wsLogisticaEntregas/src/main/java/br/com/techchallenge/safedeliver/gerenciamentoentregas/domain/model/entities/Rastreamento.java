@@ -17,11 +17,11 @@ public class Rastreamento {
     @Column(name = "cod_entrega")
     private Long id;
 
-    @Column(name = "cod_pedido",nullable = false)
+    @PrimaryKeyJoinColumn(name = "cod_pedido")
     @OneToOne(cascade = CascadeType.ALL)
     private Pedido pedido;
 
-    @Column(name = "cod_endereco")
+    @PrimaryKeyJoinColumn(name = "cod_endereco")
     @OneToOne(cascade = CascadeType.ALL)
     private Endereco endereco;
     

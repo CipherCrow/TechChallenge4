@@ -18,7 +18,7 @@ public class ItemPedido {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "cod_produto")
+    @JoinColumn(name = "cod_produto")
     private Produto produto;
 
     @Column(name = "nro_qtd",nullable = false)

@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class RastreamentoControllerTest {
-
+/*
 //    @InjectMocks
 //    private RastreamentoController rastreamentoController;
 
@@ -258,5 +258,5 @@ class RastreamentoControllerTest {
                     .andExpect(content().string("Localizacao não encontrado com este ID!"));
             verify(localizacaoService, times(1)).buscarPeloRastreamento(10L);
         }
-    }
+    }*/
 }

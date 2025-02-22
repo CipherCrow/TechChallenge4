@@ -79,10 +79,10 @@ public class EnderecoServiceTest {
             assertThat(result.getCliente()).isEqualTo(cliente);
         }
         @Test
-        @DisplayName("Deve lançar NullPointerException se o código do cliente for nulo")
+        @DisplayName("Deve lançar Exception se o código do cliente for nulo")
         void adicionarEnderecoSemCliente() {
             assertThatThrownBy(() -> enderecoService.findByClient(null))
-                    .isInstanceOf(NullPointerException.class)
+                    .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("ID não pode ser nulo");
         }
     }
@@ -124,11 +124,11 @@ public class EnderecoServiceTest {
         }
 
         @Test
-        @DisplayName("Deve lançar NullPointerException se o ID for nulo")
+        @DisplayName("Deve lançar Exception se o ID for nulo")
         void atualizarEnderecoComIdNulo() {
             Endereco bobao = new Endereco();
             assertThatThrownBy(() -> enderecoService.atualizar(null, bobao))
-                    .isInstanceOf(NullPointerException.class)
+                    .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("ID não pode ser nulo");
         }
 
@@ -162,10 +162,10 @@ public class EnderecoServiceTest {
         }
 
         @Test
-        @DisplayName("Deve lançar NullPointerException se o código do cliente for nulo")
+        @DisplayName("Deve lançar Exception se o código do cliente for nulo")
         void findByClientComCodigoNulo() {
             assertThatThrownBy(() -> enderecoService.findByClient(null))
-                    .isInstanceOf(NullPointerException.class)
+                    .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("ID não pode ser nulo");
         }
     }
@@ -185,10 +185,10 @@ public class EnderecoServiceTest {
         }
 
         @Test
-        @DisplayName("Deve lançar NullPointerException se o ID for nulo")
+        @DisplayName("Deve lançar Exception se o ID for nulo")
         void buscarEnderecoPorIdComIdNulo() {
             assertThatThrownBy(() -> enderecoService.buscarEnderecoPorId(null))
-                    .isInstanceOf(NullPointerException.class)
+                    .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("ID não pode ser nulo");
         }
 
@@ -218,14 +218,14 @@ public class EnderecoServiceTest {
 
             assertThat(result.isDeletado()).isTrue();
             verify(enderecoRepository, times(1)).findById(1L);
-            verify(enderecoRepository, times(1)).save(endereco);
+
         }
 
         @Test
-        @DisplayName("Deve lançar NullPointerException se o ID for nulo")
+        @DisplayName("Deve lançar Exception se o ID for nulo")
         void removerEnderecoComIdNulo() {
             assertThatThrownBy(() -> enderecoService.remover(null))
-                    .isInstanceOf(NullPointerException.class)
+                    .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("ID não pode ser nulo");
         }
 

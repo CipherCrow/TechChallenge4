@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("/pedido")
+@RestController
+@RequestMapping("/pedidos")
 @AllArgsConstructor
 public class PedidoController {
 

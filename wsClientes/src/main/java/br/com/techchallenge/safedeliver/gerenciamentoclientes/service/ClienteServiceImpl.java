@@ -5,16 +5,14 @@ import br.com.techchallenge.safedeliver.gerenciamentoclientes.exception.Registro
 import br.com.techchallenge.safedeliver.gerenciamentoclientes.repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-public class ClienteServiceImpl implements ClienteService{
+public class ClienteServiceImpl implements ClienteService {
 
     private final ClienteRepository clienteRepository;
-    private static String idNotNull = "ID não pode ser nulo";
+    private static final String ID_NAO_PODE_SER_NULO = "ID não pode ser nulo";
 
     @Override
     public Cliente criar(Cliente cliente) {
@@ -23,6 +21,10 @@ public class ClienteServiceImpl implements ClienteService{
 
     @Override
     public Cliente atualizar(Cliente cliente, Long codCliente) {
+        if (codCliente == null) {
+            throw new IllegalArgumentException(ID_NAO_PODE_SER_NULO);
+        }
+
         Cliente clienteEncontrado = encontrarPeloID(codCliente);
 
         clienteEncontrado.setNome(cliente.getNome());
@@ -36,7 +38,9 @@ public class ClienteServiceImpl implements ClienteService{
 
     @Override
     public Cliente excluir(Long codCliente) {
-        Objects.requireNonNull(codCliente, idNotNull);
+        if (codCliente == null) {
+            throw new IllegalArgumentException(ID_NAO_PODE_SER_NULO);
+        }
 
         Cliente clienteEncontrado = clienteRepository.findById(codCliente)
                 .orElseThrow(() -> new RegistroNotFoundException("Cliente"));
@@ -52,7 +56,9 @@ public class ClienteServiceImpl implements ClienteService{
 
     @Override
     public Cliente encontrarPeloID(Long codCliente) {
-        Objects.requireNonNull(codCliente, idNotNull);
+        if (codCliente == null) {
+            throw new IllegalArgumentException(ID_NAO_PODE_SER_NULO);
+        }
 
         return clienteRepository.findById(codCliente)
                 .orElseThrow(() -> new RegistroNotFoundException("Cliente"));

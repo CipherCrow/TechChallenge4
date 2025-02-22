@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("/rastreamento")
+@RestController
+@RequestMapping("/rastreamentos")
 @RequiredArgsConstructor
 public class RastreamentoController {
 
