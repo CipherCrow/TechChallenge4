@@ -9,14 +9,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.*;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -30,11 +26,7 @@ class EnderecoControllerTest {
 
     private AutoCloseable openMocks;
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
     private Endereco endereco;
-    private EnderecoDTO enderecoDTO;
-
     @BeforeEach
     void setUp() {
         openMocks = MockitoAnnotations.openMocks(this);
@@ -49,8 +41,6 @@ class EnderecoControllerTest {
         endereco.setNumero(100);
         endereco.setDeletado(false);
         endereco.setCliente(null);
-
-        enderecoDTO = EnderecoMapper.toDTO(endereco);
     }
 
     @AfterEach
@@ -58,7 +48,7 @@ class EnderecoControllerTest {
         openMocks.close();
     }
 
-    /*@Nested
+    @Nested
     @DisplayName("GET /enderecos/cliente/{clienteId}")
     class EncontrarPeloClienteEndpointTests {
 
@@ -87,5 +77,5 @@ class EnderecoControllerTest {
                     .andExpect(status().isNotFound())
                     .andExpect(content().string("Cliente não encontrado com este ID!"));
         }
-    }*/
+    }
 }

@@ -104,11 +104,11 @@ class ClienteControllerTest {
                 .andExpect(jsonPath("$[1].id").value(outroCliente.getId()));
     }
 
-   /* @Test
+    @Test
     void encontrarClienteNotFound() throws Exception {
         when(clienteService.encontrarPeloID(1L)).thenThrow(new RegistroNotFoundException("Cliente"));
 
         mockMvc.perform(get("/clientes/{id}", 1L))
                 .andExpect(status().isNotFound());
-    }*/
+    }
 }

@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class PedidoControllerTest {
 
-   /* private PedidoController pedidoController;
+    private PedidoController pedidoController;
 
     @Mock
     private PedidoService pedidoService;
@@ -324,5 +324,5 @@ class PedidoControllerTest {
                     .andExpect(content().string("Pedido não encontrado com este ID!"));
             verify(pedidoService, times(1)).cancelarPedido(10L);
         }
-    }*/
+    }
 }
