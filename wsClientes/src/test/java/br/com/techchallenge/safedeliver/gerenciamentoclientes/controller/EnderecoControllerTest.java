@@ -1,11 +1,8 @@
 package br.com.techchallenge.safedeliver.gerenciamentoclientes.controller;
 
 import br.com.techchallenge.safedeliver.gerenciamentoclientes.domain.model.entities.Endereco;
-import br.com.techchallenge.safedeliver.gerenciamentoclientes.dto.EnderecoDTO;
 import br.com.techchallenge.safedeliver.gerenciamentoclientes.exception.RegistroNotFoundException;
-import br.com.techchallenge.safedeliver.gerenciamentoclientes.mapper.EnderecoMapper;
 import br.com.techchallenge.safedeliver.gerenciamentoclientes.service.EnderecoService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.*;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;

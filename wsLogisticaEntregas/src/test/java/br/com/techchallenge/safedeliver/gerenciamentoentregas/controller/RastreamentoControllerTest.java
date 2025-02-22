@@ -6,17 +6,14 @@ import br.com.techchallenge.safedeliver.gerenciamentoentregas.domain.model.entit
 import br.com.techchallenge.safedeliver.gerenciamentoentregas.domain.model.entities.Rastreamento;
 import br.com.techchallenge.safedeliver.gerenciamentoentregas.domain.model.entities.enums.StatusPedidoEnum;
 import br.com.techchallenge.safedeliver.gerenciamentoentregas.dto.LocalizacaoDTO;
-import br.com.techchallenge.safedeliver.gerenciamentoentregas.dto.RastreamentoDTO;
 import br.com.techchallenge.safedeliver.gerenciamentoentregas.exception.RegistroNotFoundException;
 import br.com.techchallenge.safedeliver.gerenciamentoentregas.mapper.LocalizacaoMapper;
-import br.com.techchallenge.safedeliver.gerenciamentoentregas.mapper.RastreamentoMapper;
 import br.com.techchallenge.safedeliver.gerenciamentoentregas.service.LocalizacaoService;
 import br.com.techchallenge.safedeliver.gerenciamentoentregas.service.RastreamentoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.*;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
@@ -34,8 +31,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class RastreamentoControllerTest {
-
-    private RastreamentoController rastreamentoController;
 
     @Mock
     private RastreamentoService rastreamentoService;
@@ -103,7 +98,7 @@ class RastreamentoControllerTest {
         @Test
         @DisplayName("Deve criar rastreamento com sucesso")
         void criarRastreamentoSucesso() throws Exception {
-            when(rastreamentoService.criarRastreio(eq(1L), eq(2L)))
+            when(rastreamentoService.criarRastreio(1L, 2L))
                     .thenReturn(rastreamento);
 
             mockMvc.perform(post("/rastreamento/criarRastreamento")
@@ -118,7 +113,7 @@ class RastreamentoControllerTest {
         @Test
         @DisplayName("Deve retornar BAD_REQUEST a passar um pedido não confimado")
         void criarRastreamentoErro() throws Exception {
-            when(rastreamentoService.criarRastreio(eq(1L), eq(2L)))
+            when(rastreamentoService.criarRastreio(1L, 2L))
                     .thenThrow(new IllegalArgumentException("Só é possível criar rastreio para pedidos confirmados!"));
 
             mockMvc.perform(post("/rastreamento/criarRastreamento")
