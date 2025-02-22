@@ -22,23 +22,26 @@ public class Pedido {
     @Column(name = "cod_pedido")
     private Long id;
 
-    @Column(name = "cod_cliente",nullable = false)
+    @JoinColumn(name = "cod_cliente",nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Cliente cliente;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "cod_pedido", referencedColumnName = "cod_pedido")
+    @Builder.Default
     private List<ItemPedido> itens = new ArrayList<>();
 
     @Column(name = "nro_valorTotal")
+    @Builder.Default
     private Double valorTotal = (double) 0;
 
-    @Column(name = "cod_endereco",nullable = false)
+    @JoinColumn(name = "cod_endereco",nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Endereco endereco;
 
     @Column(name  = "ind_status")
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     private StatusPedidoEnum statusPedido = StatusPedidoEnum.EM_ANDAMENTO;
 
 }

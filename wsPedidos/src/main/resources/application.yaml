@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8082
   shutdown: graceful
   servlet:
     encoding:
@@ -34,6 +34,12 @@ management:
   endpoint:
     shutdown:
       enabled: true
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui/index.html
 
 
 logging:

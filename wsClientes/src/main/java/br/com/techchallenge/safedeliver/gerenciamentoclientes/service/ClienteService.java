@@ -10,5 +10,5 @@ public interface ClienteService {
     Cliente atualizar(Cliente cliente, Long codCliente);
     Cliente excluir(Long codCliente);
     List<Cliente> listarTodos();
-    Cliente findById(Long codCliente);
+    Cliente encontrarPeloID(Long codCliente);
 }

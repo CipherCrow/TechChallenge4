@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  core:
+    build: ./core
+    ports:
+      - "8080:8080"
+    depends_on:
+      - clientes
+      - pedidos
+      - produtos
+      - logistica
+
+  clientes:
+    build: ./wsClientes
+    ports:
+      - "8081:8081"
+
+  pedidos:
+    build: ./wsPedidos
+    ports:
+      - "8082:8082"
+
+  produtos:
+    build: ./wsProdutos
+    ports:
+      - "8083:8083"
+      
+  logistica:
+    build: ./wsLogisticaEntregas
+    ports:
+      - "8084:8084"

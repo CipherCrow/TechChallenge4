@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8083
   shutdown: graceful
   servlet:
     encoding:
@@ -34,6 +34,9 @@ management:
   endpoint:
     shutdown:
       enabled: true
+  # batch:
+    # jdbc:
+      # initialize-schema: always
 
 
 logging:

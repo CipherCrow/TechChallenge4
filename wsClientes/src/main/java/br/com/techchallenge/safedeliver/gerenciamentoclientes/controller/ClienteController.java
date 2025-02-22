@@ -6,62 +6,45 @@ import br.com.techchallenge.safedeliver.gerenciamentoclientes.mapper.ClienteMapp
 import br.com.techchallenge.safedeliver.gerenciamentoclientes.service.ClienteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
-@Controller
-@RequestMapping("/cliente")
+@RestController
+@RequestMapping("/clientes")
 @RequiredArgsConstructor
 public class ClienteController {
 
-    @Autowired
     private final ClienteService clienteService;
 
-    @PostMapping("/criar")
-    public ResponseEntity<ClienteDTO> criar(@RequestBody ClienteDTO cliente){
+    @PostMapping
+    public ResponseEntity<ClienteDTO> criar(@Valid @RequestBody ClienteDTO cliente) {
         return ResponseEntity.status(HttpStatus.CREATED).body(
-            ClienteMapper.toDTO(
-                    clienteService.criar(ClienteMapper.toEntity(cliente))
-            )
+                ClienteMapper.toDTO(clienteService.criar(ClienteMapper.toEntity(cliente)))
         );
     }
 
-    @PutMapping("/atualizar/{id}")
-    public ResponseEntity<ClienteDTO> atualizar(@Valid @RequestBody ClienteDTO cliente, @PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(
-            ClienteMapper.toDTO(
-                    clienteService.atualizar(ClienteMapper.toEntity(cliente),id)
-            )
+    @PutMapping("/{id}")
+    public ResponseEntity<ClienteDTO> atualizar(@Valid @RequestBody ClienteDTO cliente, @PathVariable Long id) {
+        return ResponseEntity.ok(
+                ClienteMapper.toDTO(clienteService.atualizar(ClienteMapper.toEntity(cliente), id))
         );
     }
 
-    @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<ClienteDTO> excluir(@Valid @PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(
-            ClienteMapper.toDTO(
-                    clienteService.excluir(id)
-            )
-        );
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+        clienteService.excluir(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClienteDTO> encontrar(@Valid @PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.FOUND).body(
-            ClienteMapper.toDTO(
-                    clienteService.findById(id)
-            )
-        );
+    public ResponseEntity<ClienteDTO> encontrar(@PathVariable Long id) {
+        return ResponseEntity.ok(ClienteMapper.toDTO(clienteService.encontrarPeloID(id)));
     }
 
-    @GetMapping("/todos")
-    public ResponseEntity<List<Cliente>> encontrarTodos(){
-        return ResponseEntity.status(HttpStatus.FOUND).body(
-            clienteService.listarTodos()
-        );
+    @GetMapping
+    public ResponseEntity<List<Cliente>> encontrarTodos() {
+        return ResponseEntity.ok(clienteService.listarTodos());
     }
 }

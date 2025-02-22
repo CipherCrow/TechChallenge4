@@ -4,9 +4,6 @@ import br.com.techchallenge.safedeliver.gerenciamentoclientes.domain.model.entit
 import br.com.techchallenge.safedeliver.gerenciamentoclientes.dto.ClienteDTO;
 
 public class ClienteMapper {
-    private ClienteMapper(){
-        throw new IllegalStateException("Classe de utilidade");
-    }
 
     public static ClienteDTO toDTO(Cliente cliente) {
         return new ClienteDTO(

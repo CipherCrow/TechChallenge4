@@ -3,7 +3,6 @@ package br.com.techchallenge.safedeliver.gerenciamentoentregas.domain.model.enti
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +10,6 @@ import lombok.NoArgsConstructor;
 @Entity(name = "tb_cliente")
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class Cliente {
 
     @Id

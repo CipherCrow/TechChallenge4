@@ -4,9 +4,6 @@ import br.com.techchallenge.safedeliver.gerenciamentoclientes.domain.model.entit
 import br.com.techchallenge.safedeliver.gerenciamentoclientes.dto.EnderecoDTO;
 
 public class EnderecoMapper {
-    private EnderecoMapper(){
-        throw new IllegalStateException("Classe de utilidade");
-    }
 
     public static EnderecoDTO toDTO(Endereco endereco) {
         return new EnderecoDTO(

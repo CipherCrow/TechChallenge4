@@ -3,15 +3,14 @@ package br.com.techchallenge.safedeliver.gerenciamentoclientes.domain.model.enti
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity(name = "tb_cliente")
+@Entity
+@Table(name = "tb_cliente")
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class Cliente {
 
     @Id

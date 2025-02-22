@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "produto-service", url = "http://localhost:8080/produto")
+@FeignClient(name = "produto-service", url = "http://core:8080/produto")
 public interface ProdutoClient {
 
     @GetMapping("/validarEstoque/{id}")
